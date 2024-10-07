@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joe's Hotdog Stand Order - Extra Credit</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #2e985c;
+        }
+        .order-summary {
+            margin-top: 20px;
+        }
+        .order-summary h2 {
+            color: #ec6249;
+        }
+        table {
+            width: 50%;
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Joe's Hotdog Stand!</h1>
+
+    <script>
+        const items = {
+            "Hotdogs": 4.80,
+            "Fries": 3.95,
+            "Sodas": 1.99
+        };
+
+        let quantities = {};
+        let subtotal = 0;
+
+        function showMoney(amount) {
+            return amount.toFixed(2);
+        }
+
+        for (let item in items) {
+            let quantity = parseInt(prompt("How many " + item + " would you like?"));
+            quantities[item] = quantity;
+        }
+
+        for (let item in quantities) {
+            subtotal += quantities[item] * items[item];
+        }
+
+        let discount = 0;
+        if (subtotal >= 25) {
+            discount = subtotal * 0.10;
+        }
+
+        let subtotalAfterDiscount = subtotal - discount;
+
+        const TAX_RATE = 0.0625;
+        let taxAmount = subtotalAfterDiscount * TAX_RATE;
+        let finalTotal = subtotalAfterDiscount + taxAmount;
+
+        document.write("<div class='order-summary'>");
+        document.write("<h2>Order Summary:</h2>");
+        document.write("<table>");
+        document.write("<tr><th>Item</th><th>Quantity</th><th>Cost</th></tr>");
+
+        for (let item in quantities) {
+            document.write("<tr><td>" + item + "</td><td>" + quantities[item] + "</td><td>$" + showMoney(quantities[item] * items[item]) + "</td></tr>");
+        }
+
+        document.write("<tr><td colspan='2'><strong>Subtotal</strong></td><td>$" + showMoney(subtotal) + "</td></tr>");
+
+        if (discount > 0) {
+            document.write("<tr><td colspan='2'><strong>Discount</strong></td><td>-$" + showMoney(discount) + "</td></tr>");
+        }
+        
+        document.write("<tr><td colspan='2'><strong>Subtotal after Discount</strong></td><td>$" + showMoney(subtotalAfterDiscount) + "</td></tr>");
+        document.write("<tr><td colspan='2'><strong>Tax</strong></td><td>$" + showMoney(taxAmount) + "</td></tr>");
+        document.write("<tr><td colspan='2'><strong>Final Total</strong></td><td>$" + showMoney(finalTotal) + "</td></tr>");
+        document.write("</table>");
+        document.write("</div>");
+    </script>
+</body>
+</html>
